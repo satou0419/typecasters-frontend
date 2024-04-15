@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
+
 import Login from "./Login";
 import Animation from "./components/Animation";
 import Button from "./components/Button";
@@ -10,16 +11,17 @@ import Navigation from "./components/Navigation";
 import Dashboard from "./Dashboard";
 
 function App() {
-  return (
-    <>
-      <Navigation />
-      <div className="container">
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
-    </>
-  );
+  // return (
+  //   <>
+  //     <Navigation />
+  //     <div className="container">
+  //       <Routes>
+  //         <Route path="/dashboard" element={<Dashboard />} />
+  //       </Routes>
+  //     </div>
+  //   </>
+  // );
+  return <Login />;
 }
 
 export default App;

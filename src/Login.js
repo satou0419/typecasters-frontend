@@ -16,7 +16,7 @@ export default function Login() {
             <section className="input-section">
               <input
                 type="text"
-                className="input input__card"
+                className="input input-box"
                 id="username"
                 placeholder="Username"
                 autoFocus
@@ -24,7 +24,7 @@ export default function Login() {
 
               <input
                 type="password"
-                className="input input__card"
+                className="input input-box"
                 id="password"
                 placeholder="Password"
               />
@@ -32,11 +32,11 @@ export default function Login() {
               <button className="btn">Sign In</button>
 
               <span>
-                Don't have an account yet?<span>Sign up</span>
+                Don't have an account yet?<span className="signup-btn">Sign up</span>
               </span>
 
               <span>
-                <span>Terms & Conditions | </span>
+                <span>Terms and Conditions | </span>
                 <span>Privacy Policy | </span>
                 <span>Support</span>
               </span>

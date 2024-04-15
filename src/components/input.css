@@ -11,6 +11,9 @@
 .input {
   outline: none;
   padding: 5px 0px;
+  padding: 5px 100px 5px 5px;
+  width: 200px;
+  height: 25px;
 }
 
 .input-box {
@@ -21,6 +24,7 @@
 
 .input-box::placeholder {
   color: inherit;
+  font-size: 10px;
 }
 
 .input-line {
@@ -32,6 +36,7 @@
 .input-line--dark {
   border-bottom: 2px solid #666;
   color: #666;
+  
 }
 
 .input-line--dark::placeholder {
