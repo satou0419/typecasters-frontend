@@ -74,7 +74,9 @@ main {
 .banner-sidebar img {
   width: 100%;
 }
-
+.input-box{
+  margin-left: 1rem;
+}
 .input-section {
   display: flex;
   flex-direction: column;
@@ -83,7 +85,8 @@ main {
   font-family: lilita one;
   font-size: 10px;
   color: #c0c0c0;
-  margin-top: 20px;
+  margin-top: 50px;
+  text-align: center;
 
 }
 
@@ -99,6 +102,8 @@ main {
 }
 .btn{
   margin-top: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 3rem;
   background-color: aqua;
+  width: 100px;
+  margin-left: 7.5rem;
 }
