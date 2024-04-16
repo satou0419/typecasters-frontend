@@ -1,40 +1,45 @@
+import "./styles.css";
+
 export default function Registration() {
+  document.body.style.backgroundColor = "#333";
   return (
     <main className="registration">
       <section className="registration__container">
-        <aside className="registration__banner"></aside>
-        <form className="registration__form">
+        <aside className="registration__banner">
+        <img src="./images/login--banner.png" alt="Login Banner" />
+        </aside>
+        <aside className="card Register_card">
           <h1 className="registration__heading">Create Account</h1>
           <section className="registration__input-field">
             <input
               type="text"
-              className="registration__input"
+              className="input input-box"
               placeholder="Firstname"
               autoFocus
             />
             <input
               type="text"
-              className="registration__input"
+              className="input input-box"
               placeholder="Lastname"
             />
             <input
               type="text"
-              className="registration__input"
+              className="input input-box"
               placeholder="Username"
             />
             <input
               type="password"
-              className="registration__input"
+              className="input input-box"
               placeholder="Password"
             />
             <input
               type="password"
-              className="registration__input"
+              className="input input-box"
               placeholder="Confirm Password"
             />
             <input
               type="email"
-              className="registration__input"
+              className="input input-box"
               placeholder="Email"
             />
             <label htmlFor="usertype" className="visually-hidden">
@@ -43,9 +48,9 @@ export default function Registration() {
             <select
               id="usertype"
               className="registration__input registration__input--select"
-              placeholder="Usertype"
+              // placeholder="Usertype"
             >
-              <option value="default" disabled hidden>
+              <option value="" disabled hidden>
                 Select User Type
               </option>
               <option value="student">Student</option>
@@ -55,7 +60,7 @@ export default function Registration() {
           <button type="submit" className="registration__button">
             Sign Up
           </button>
-        </form>
+        </aside>
       </section>
     </main>
   );

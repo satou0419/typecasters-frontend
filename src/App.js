@@ -9,6 +9,7 @@ import Card from "./components/Card";
 import Input from "./components/Input";
 import Navigation from "./components/Navigation";
 import Dashboard from "./Dashboard";
+import Registration from "./Registration";
 
 function App() {
   // return (
@@ -21,7 +22,7 @@ function App() {
   //     </div>
   //   </>
   // );
-  return <Login />;
+  return <Registration />;
 }
 
 export default App;

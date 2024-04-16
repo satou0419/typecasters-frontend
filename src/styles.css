@@ -9,7 +9,39 @@ main {
   justify-content: center;
 
 }
+.registration{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.registration__form{
+  height: 100%;
+  width: 50%;
+  /* outline: blue solid 2px; */
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 0.1rem;
+  position: absolute;
+  right: 0;
+  
+}
+.registration__container{
+  background-color: #fff;
+
+  outline: green solid 2px;
+  width: 800px;
+  height: 580px;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 .login-form {
   background-color: #fff;
 
@@ -49,7 +81,26 @@ main {
   border-radius: 20px;
   height: 90%;
   width: 85%;
-
+  /* margin-left: 25rem; */
+}
+.registration__input--select{
+  border: 1px solid #c1c1c1;
+  border-radius: 3px;
+  color: #c1c1c1;
+  width: 19.2rem;
+  margin-left: 1rem;
+  height: 2.5rem;
+}
+.Register_card{
+  margin-left: 25rem; 
+  width: 23rem;
+}
+.registration__heading{
+  text-align: center;
+  color: #534e64;
+  font-size: 40px;
+  font-family: lilita one;
+  font-weight: 100;
 }
 .card__header {
   text-align: center;
@@ -57,6 +108,19 @@ main {
   font-size: 40px;
   font-family: lilita one;
   font-weight: 100;
+}
+.registration__banner{
+  height: 100%;
+  width: 55%;
+  /* outline: red solid 2px; */
+  position: absolute;
+  left: 0px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+.registration__banner img{
+  width: 100%;
 }
 .banner-sidebar {
   height: 100%;
@@ -89,7 +153,26 @@ main {
   text-align: center;
 
 }
-
+.registration__input-field{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  font-family: lilita one;
+  font-size: 10px;
+  color: #c0c0c0;
+  margin-top: 50px;
+  text-align: center;
+   display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  justify-content: center;
+  font-family: lilita one;
+  font-size: 10px;
+  color: #c0c0c0;
+  /* margin-top: 50px; */
+  text-align: center;
+}
 .input {
   outline: none;
   margin-top: 0.5rem;
