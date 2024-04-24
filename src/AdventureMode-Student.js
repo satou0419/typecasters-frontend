@@ -1,8 +1,8 @@
 import { GameCard, ArchiveCard } from "./components/Card";
 import "./components/card.css";
-import "./dashboard.css";
+import "./adventureMode-Student.css";
 import { Link } from "react-router-dom";
-export default function Dashboard() {
+export default function AdventureMode({title}) {
   return (
     <main className="dashboard-wrapper">
       <section>
@@ -32,15 +32,19 @@ export default function Dashboard() {
           counterCount={4}
           imageSize="90%" // Adjust the size here
         />
+        <div className="card card-h card--dotted">
+      <h1 className="card--dotted-title">{title="+ Join Room"}</h1>
+    </div>
       </section>
    </section>
-      <ArchiveCard
+   
+      {/* <ArchiveCard
         archive="Archive"
         description="Conquer the Towers! Collect Words and Badges in Adventure Mode"
         total_badge={4}
         total_words={4}
         bannerSrc="./assets/banner/banner_adventure.webp"
-      />
+      /> */}
        
     </main>
   );
