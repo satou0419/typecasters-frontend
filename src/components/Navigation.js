@@ -5,9 +5,13 @@ import "./navigation.css";
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ProfileOpen, SetProfileOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+  const toggleProfile = () => {
+    SetProfileOpen(!ProfileOpen);
   };
 
   return (
@@ -23,6 +27,12 @@ export default function Navigation() {
         </div>
         <div className={`menu ${menuOpen ? "open" : "close"}`}>
           <Link to="/login">About</Link>
+        </div>
+        <div className="profile-icon" onClick={toggleProfile}>
+          <span className="circle"></span>
+        </div>
+        <div className={`profile ${ProfileOpen ? "open" : "close"}`}>
+        {/* <Link to="/login">About</Link> */}
         </div>
       </nav>
     </section>
