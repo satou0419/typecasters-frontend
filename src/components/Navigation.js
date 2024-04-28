@@ -32,7 +32,6 @@ export default function Navigation() {
           <span className="circle"></span>
         </div>
         <div className={`profile ${ProfileOpen ? "open" : "close"}`}>
-        {/* <Link to="/login">About</Link> */}
         </div>
       </nav>
     </section>
