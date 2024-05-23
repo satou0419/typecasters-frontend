@@ -6,19 +6,14 @@
   margin-bottom: 5%;
 }
 
-.nav {
-  /* margin-bottom: 10%; */
-}
-
 .nav-bar {
   width: 100%;
   height: 5ch;
   background-image: url("/public/assets/background/bg_nav.svg");
-  background-size: cover; /* cover to ensure full coverage */
-  background-position: center; /* centers the background image */
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   position: relative;
-
   display: flex;
   justify-content: flex-end;
   gap: 2rem;
@@ -78,7 +73,6 @@
   left: 20px; /* Adjust as needed */
   transform: translateY(-50%);
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,7 +81,6 @@
 }
 
 .menu-icon .bar {
-  /*editable for the menu icon*/
   width: 100%;
   height: 4px;
   background-color: #ffcd6c;
@@ -95,7 +88,7 @@
 }
 
 .menu-icon.active .bar:nth-child(1) {
-  transform: translateY(110%) rotate(45deg);
+  transform: translateY(150%) rotate(40deg);
 }
 
 .menu-icon.active .bar:nth-child(2) {
@@ -103,11 +96,10 @@
 }
 
 .menu-icon.active .bar:nth-child(3) {
-  transform: translateY(-300%) rotate(-45deg);
+  transform: translateY(-300%) rotate(-40deg);
 }
 
 .menu {
-  /*editable for the menu sidebar*/
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -120,18 +112,17 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   transform: translateY(-50%) translateX(-100%); /*starting location*/
   transition: transform 0.3s ease;
-
   z-index: 10;
   text-align: center;
   padding-left: 0;
   padding-right: 0;
-  z-index: 5;
 }
+
 .menu:hover {
   color: #a893bf;
 }
+
 .menu.open {
-  /*for the animation of sidebar*/
   padding-top: 0;
   transform: translateY(-50%) translateX(0); /*last location*/
 }
@@ -140,20 +131,20 @@
   text-decoration: none;
   color: #333;
   width: 100%;
-  /* outline: 1px solid red; */
   padding: 20px 0;
 }
 
 .menu.open + .overlay {
   display: block;
 }
+
 .menu a:hover {
   background-color: #a893bf;
   width: 100%;
 }
-/*CSS FOR PROFILE*/
+
+/* CSS FOR PROFILE */
 .profile-icon .circle {
-  /*profile itself*/
   height: 45px;
   width: 45px;
   background-color: black;
@@ -162,10 +153,19 @@
   border-radius: 50%;
   display: inline-block;
   margin-top: 1.5rem;
-  transform: translateX(600%) translateY(-25%);
-  transition: transform 0.3s ease;
+  transform: translateX(13rem) translateY(-25%);
+  transition: transform 0.1s ease;
   cursor: pointer;
 }
+
+.circle.open {
+  transform: translateX(200%) translateY(-25%);
+  position: absolute;
+  z-index: 200000;
+  margin-top: 0;
+  bottom: -35px;
+}
+
 
 .profile {
   display: flex;
@@ -173,7 +173,6 @@
   position: absolute;
   top: 2rem;
   left: 0px;
-  /* height: 10rem; */
   height: 0;
   width: 20px;
   background-color: #9d7add;
@@ -182,74 +181,28 @@
   border: 2px solid white;
   padding-left: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* transform: translateY(-10%) translateX(50%); */
-  /* margin-left: 68.5rem; */
   transform: scaleX(100%) scaleY(0);
   transform-origin: top;
   transition: transform 0.1s ease;
-  transition-delay: 0.5s;
+  transition-delay: 0.3s;
   overflow-x: hidden;
+
+}
+.profile-link{
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.profile.open :hover{
+  background-color: #ffce6d;
+  color:#333;
+  cursor: pointer;
 }
 
-.profile-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  right: 0;
-}
-.profile-container {
-  /* overflow: hidden; */
-
-  outline: 2px solid green;
-  width: 250px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-body {
-  overflow-x: hidden;
-}
-.profile-side {
-  transform: translateY(0%) translateX(500%);
-  width: 202px;
-  height: 2.5rem;
-  transition: transform 0.3s ease;
-  /* margin-right: 50rem; */
-  background-color: #9d7add;
-  border-bottom: 1px solid white;
-  border-radius: 10px;
-  box-shadow: 0px 24px 15px 0px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  right: 0;
-  align-items: center;
-}
-.profile-side.open {
-  transform: translateY(0%) translateX(100%);
-  z-index: 10000;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-
-  position: absolute;
-}
-
-.circle.open {
-  transform: translateX(5%) translateY(-25%);
-  position: absolute;
-  z-index: 200000;
-  margin-left: -5px;
-
-  margin-top: 0;
-  bottom: -35px;
-}
 .profile.open {
-  transform: translateY(-10%) translateX(550%);
   right: 0;
   padding-left: 0px;
   z-index: 10;
-  width: 14%;
+  width: 202px;
   height: 10rem;
   transform: scaleX(100%) scaleY(100%);
   display: flex;
@@ -260,24 +213,75 @@ body {
   gap: 10px;
   top: 0;
   position: absolute;
+  margin-left: 100px;
+  
 }
+
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  right: 0;
+}
+
+.profile-container {
+  outline: 2px solid green;
+  width: 25%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.inv-shop {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  gap: 20px;
+  right: -150px;
+  top: 50%;
+  transform: translateY(-50%) translateX(90px);
+
+}
+
+.inv-shop-icon {
+  width: 2rem;
+  transition: transform 0.1s ease;
+  cursor: pointer;
+}
+.inv-shop .open{
+  transform: translateY(0%) translateX(-220%);
+}
+
+.profile-side {
+  transform: translateY(0%) translateX(350%);
+  width: 202px;
+  height: 2.5rem;
+  transition: transform 0.1s ease;
+  background-color: #9d7add;
+  border-bottom: 1px solid white;
+  border-radius: 10px;
+  box-shadow: 0px 24px 15px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  align-items: center;
+}
+
+.profile-side.open {
+  transform: translateY(0%) translateX(150%);
+  z-index: 10000;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  position: absolute;
+}
+
+
+
 .profile-side p {
   font-family: "lilita one";
   text-align: center;
   color: #fff;
-}
-.inventory-shop{
-  margin-top: 1%;
-  position: absolute;
-  display: flex;
-  gap: 20px;
-  transform: translateX(90%) translateY(0%);
-  transition: transform 0.3s ease;
-}
-.inventory-shop .open{
-  transform: translateX(0%) translateY(0%);
-}
-.icon{
-  width: 20%;
-  height: auto;
 }

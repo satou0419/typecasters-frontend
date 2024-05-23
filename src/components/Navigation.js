@@ -30,6 +30,10 @@ export default function Navigation({ onLogout }) {
   const toggleProfile = () => {
     setProfileOpen(!profileOpen);
   };
+  const handleInvShopClick = (e) => {
+    e.stopPropagation();
+    // Prevent the profile from toggling when inv-shop icons are clicked
+  };
 
   return (
     <section>
@@ -54,11 +58,19 @@ export default function Navigation({ onLogout }) {
         <div className="profile-container">
           <div className="profile-wrapper">
             <div className="profile-icon" onClick={toggleProfile}>
+              <div className="inv-shop">
+                <Link to="/inventory_shop">
+                <img className= {`inv-shop-icon ${profileOpen ? "open" : ""}`} src="/assets/icon/ic_shop.webp" onClick={handleInvShopClick}></img>
+                </Link>
+                <Link to="/inventory_shop">
+                <img className= {`inv-shop-icon ${profileOpen ? "open" : ""}`} src="/assets/icon/ic_inventory.webp" onClick={handleInvShopClick}></img>
+                </Link>
+              </div>
               <span className={`circle ${profileOpen ? "open" : ""}`}></span>
-              <div className={`profile ${profileOpen ? "open" : ""}`}>
-                <Link to="/inventory_shop">Inventory</Link>
-                <Link to="/Settings">Settings</Link>
-                <Link onClick={onLogout}>Logout</Link>
+              <div className={`profile ${profileOpen ? "open" : ""}`} onClick={handleInvShopClick}>
+                <Link to="/inventory_shop" className="profile-link">Inventory</Link>
+                <Link to="/Settings" className="profile-link">Settings</Link>
+                <Link onClick={onLogout} className="profile-link">Logout</Link>
               </div>
             </div>
             <div className={`profile-side ${profileOpen ? "open" : ""}`}>
