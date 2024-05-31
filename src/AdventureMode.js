@@ -230,7 +230,9 @@ export default function AdventureMode() {
     <main className="adventure-wrapper">
       <section className="upper-adventure">
         <Link to="/dashboard">
-          <button className="btn btn--large btn--danger--large btnBack">
+          <button 
+          id="btn_back"
+          className="btn btn--large btn--danger--large btnBack">
             Back
           </button>
         </Link>
@@ -255,6 +257,7 @@ export default function AdventureMode() {
                   </div> */}
                 </div>
                 <button
+                  id="btn-enter"
                   className="btn btn--small btn--primary btn-enter"
                   onClick={handleEnterClick}
                 >

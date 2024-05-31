@@ -124,7 +124,9 @@ export default function Archive() {
                         onChange={handleSearchChange}
                       />
                     </div>
-                    <div className="word-list">{renderWordList()}</div>
+                    <div 
+                    id="word_list"
+                    className="word-list">{renderWordList()}</div>
                   </div>
                 </div>
               </div>
@@ -139,6 +141,7 @@ export default function Archive() {
                           `[${currentWordData.pronunciation}]`}
                         {audioUrl && (
                           <button
+                            id="btn_audio"
                             className="btn btn--small btn--primary"
                             onClick={() => new Audio(audioUrl).play()}
                           >
@@ -223,12 +226,14 @@ export default function Archive() {
       <section className="tab-section">
         <div className="tab-btn-container">
           <div
+            id="btn_word"
             className={`tab-btn ${activeTab === "word" ? "active" : ""}`}
             onClick={() => handleTabClick("word")}
           >
             Word
           </div>
           <div
+            id="btn_achievement"
             className={`tab-btn ${activeTab === "achievement" ? "active" : ""}`}
             onClick={() => handleTabClick("achievement")}
           >

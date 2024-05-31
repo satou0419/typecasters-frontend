@@ -36,6 +36,7 @@ export default function SimulationRoomTeacher() {
       <div className="teacher-card-wrapper">
         <section className="simulation-card-wrapper">
           {gameData.map((game, index) => (
+            <Link to="/teacher/room_settings">
             <CardSimulation
               key={index}
               className="card card-simulation"
@@ -46,6 +47,7 @@ export default function SimulationRoomTeacher() {
               progressTitle="Students Done"
               progressValue={game.participants ? game.participants.length : 0}
             />
+          </Link>
           ))}
           <Link to="/teacher/create_game">
             <CardCreate title="+Create Game" />
