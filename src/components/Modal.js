@@ -13,17 +13,19 @@ export const Modal = ({
     <div className="modal">
       <div className="overlay"></div>
       <div className="modal-content">
-        <h1 className="modal-title">{modalTitle}</h1>
+        <h1 id="lbl_modal" className="modal-title">{modalTitle}</h1>
         <p className="modal-message">{modalContent}</p>
         <div className="btn-container">
           <button
             onClick={cancelClick}
+            id="btn_cancel"
             className="btn btn--small btn--danger modal-btn"
           >
             {cancelButtonLabel}
           </button>
           <button
             onClick={confirmClick}
+            id="btn_confirm"
             className="btn btn--small btn--primary modal-btn"
           >
             {confirmButtonLabel}
@@ -44,11 +46,12 @@ export const Message = ({
     <div className="modal">
       <div className="overlay"></div>
       <div className="modal-content">
-        <h1 className="message-title">{messageTitle}</h1>
+        <h1 id="lbl_modal" className="message-title">{messageTitle}</h1>
         <p className="modal-message">{modalContent}</p>
         <div className="btn-container">
           <button
             onClick={confirmClick}
+            id="btn_confirm"
             className="btn btn--small btn--primary message-btn"
           >
             {confirmButtonLabel}
