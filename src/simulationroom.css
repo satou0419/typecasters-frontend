@@ -7,8 +7,12 @@
 .txt-Rooms {
   font-family: "lilita One";
   font-size: 1.5rem;
-  margin-left: 14%;
+  /* margin-left: 14%; */
   margin-top: 4rem;
+}
+
+.txt-code {
+  font-family: "lilita One";
 }
 .card-simulation {
   height: 30rem;

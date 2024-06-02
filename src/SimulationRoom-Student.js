@@ -48,7 +48,11 @@ export default function AdventureMode() {
       const isDisabled = simulation.participants.some(
         (participant) => participant.done
       );
-
+      // Calculate the total score of all participants
+      const totalScore = simulation.participants.reduce(
+        (sum, participant) => sum + participant.score,
+        0
+      );
       return (
         <Link
           key={index}
@@ -60,11 +64,8 @@ export default function AdventureMode() {
             className="card card-simulation"
             title={simulation.name}
             bannerSrc="./assets/banner/banner_adventure.webp"
-            progressTitle="Students Done"
-            progressValue={
-              simulation.participants.filter((participant) => participant.done)
-                .length
-            }
+            progressTitle="Score"
+            progressValue={totalScore}
             disabled={isDisabled}
           />
         </Link>
@@ -74,7 +75,8 @@ export default function AdventureMode() {
 
   return (
     <main className="room-wrapper">
-      <div className="txt-Rooms">{`Simulation - ${studentRoomName} - ${studentGameCode}`}</div>
+      <div className="txt-Rooms">{`${studentRoomName}`}</div>
+      <span className="txt-code">{studentGameCode}</span>
 
       <div className="room-wrapper">
         <section className="room-card-wrapper">

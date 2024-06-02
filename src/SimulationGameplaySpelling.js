@@ -235,6 +235,7 @@ export default function SimulationGameplaySpelling() {
     setIsCorrect(isCorrect); // Set isCorrect state
 
     if (isCorrect) {
+      setIsCorrect(true);
       mainAttackAnimation();
       incrementScore();
     } else {

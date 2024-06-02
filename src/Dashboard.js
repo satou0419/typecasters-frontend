@@ -18,15 +18,15 @@ export default function Dashboard() {
   const [roomCount, setRoomCount] = useState();
 
   useEffect(() => {
-    if (userType == "student"){
+    if (userType == "student") {
       fetch(`${VIEW_STUDENT_ROOM}${userID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.length);
-        setRoomCount(data.length);
-      })
-      .catch((error) => console.error("Error fetching floors:", error));
-    }  else if (creatorID) {
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.length);
+          setRoomCount(data.length);
+        })
+        .catch((error) => console.error("Error fetching floors:", error));
+    } else if (creatorID) {
       fetch(`${VIEW_ROOM}/${creatorID}`)
         .then((response) => response.json())
         .then((data) => {
@@ -67,13 +67,11 @@ export default function Dashboard() {
   return (
     <main className="dashboard-wrapper">
       <section className="game-card-wrapper">
-        <Link to="/adventure_mode"
-        id="view_adventure"
-        >
+        <Link to="/adventure_mode" id="view_adventure">
           {/* Use userData for progressValue */}
           <CardGame
             title="Adventure"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing"
+            content="Enter the tower, spell the enemies' words, and conquer each challenge to advance!"
             progressTitle="Floor Completed"
             progressValue={
               userData ? getProgressValue(userData.userProgress.floorId) : ""
@@ -81,12 +79,10 @@ export default function Dashboard() {
             imageSrc="./assets/banner/banner_adventure.webp"
           />
         </Link>
-        <Link to={`/${userType}/simulation_mode`}
-        id="view_rooms"
-        >
+        <Link to={`/${userType}/simulation_mode`} id="view_rooms">
           <CardGame
             title="Room"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing"
+            content="Crafts custom spelling games, designing unique challenges for students to tackle"
             progressTitle="Room"
             progressValue={roomCount} // Placeholder value, replace with actual data if available
             imageSrc="./assets/banner/banner_simulation.png"
@@ -94,9 +90,7 @@ export default function Dashboard() {
         </Link>
       </section>
 
-      <Link to="/archive"
-      id="view_archives"
-      >
+      <Link to="/archive" id="view_archives">
         <CardArchive
           title="Archive"
           content="Conquer the Towers! Collect Words and Badges in Adventure Mode"
