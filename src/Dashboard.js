@@ -44,7 +44,9 @@ export default function Dashboard() {
   return (
     <main className="dashboard-wrapper">
       <section className="game-card-wrapper">
-        <Link to="/adventure_mode">
+        <Link to="/adventure_mode"
+        id="view_adventure"
+        >
           {/* Use userData for progressValue */}
           <CardGame
             title="Adventure"
@@ -56,7 +58,9 @@ export default function Dashboard() {
             imageSrc="./assets/banner/banner_adventure.webp"
           />
         </Link>
-        <Link to={`/${userType}/simulation_mode`}>
+        <Link to={`/${userType}/simulation_mode`}
+        id="view_rooms"
+        >
           <CardGame
             title="Room"
             content="Lorem ipsum dolor sit amet, consectetur adipiscing"
@@ -67,7 +71,9 @@ export default function Dashboard() {
         </Link>
       </section>
 
-      <Link to="/archive">
+      <Link to="/archive"
+      id="view_archives"
+      >
         <CardArchive
           title="Archive"
           content="Conquer the Towers! Collect Words and Badges in Adventure Mode"

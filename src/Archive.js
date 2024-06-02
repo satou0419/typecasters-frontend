@@ -124,7 +124,9 @@ export default function Archive() {
                         onChange={handleSearchChange}
                       />
                     </div>
-                    <div className="word-list">{renderWordList()}</div>
+                    <div 
+                    id="word_list"
+                    className="word-list">{renderWordList()}</div>
                   </div>
                 </div>
               </div>
@@ -133,12 +135,15 @@ export default function Archive() {
                 <div className="book-page book--container">
                   {selectedWord ? (
                     <div className="word-details">
-                      <h2>{selectedWord}</h2>
+                      <h2
+                      id="word_name"
+                      >{selectedWord}</h2>
                       <p>
                         {currentWordData.pronunciation &&
                           `[${currentWordData.pronunciation}]`}
                         {audioUrl && (
                           <button
+                            id="btn_audio"
                             className="btn btn--small btn--primary"
                             onClick={() => new Audio(audioUrl).play()}
                           >
@@ -146,7 +151,9 @@ export default function Archive() {
                           </button>
                         )}
                       </p>
-                      <h1>DEFINITION</h1>
+                      <h1
+                      id="word_desc"
+                      >DEFINITION</h1>
                       <p>{currentWordData.definition}</p>
                     </div>
                   ) : (
@@ -223,12 +230,14 @@ export default function Archive() {
       <section className="tab-section">
         <div className="tab-btn-container">
           <div
+            id="btn_word"
             className={`tab-btn ${activeTab === "word" ? "active" : ""}`}
             onClick={() => handleTabClick("word")}
           >
             Word
           </div>
           <div
+            id="btn_achievement"
             className={`tab-btn ${activeTab === "achievement" ? "active" : ""}`}
             onClick={() => handleTabClick("achievement")}
           >
