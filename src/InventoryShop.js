@@ -167,9 +167,9 @@ export default function InventoryShop() {
                   </div>
                     <div
                     className="quantity-box">
-                    <h2 
+                    <h3 
                     id="item_quantity"
-                    className="quantity">2X</h2>
+                    className="quantity">0x</h3>
                     </div>
                 </div>
               ))}
