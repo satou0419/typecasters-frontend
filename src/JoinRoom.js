@@ -10,6 +10,7 @@ export default function CreateRoom() {
   const handleInputChange = (event) => {
     setGameCode(event.target.value); // Update gameCode state with the value entered in the text field
   };
+  
   const handleJoinClick = () => {
     fetch(`${JOIN_ROOM}${userID}/code/${gameCode}`, {
       method: "PUT",

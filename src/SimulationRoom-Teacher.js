@@ -37,17 +37,17 @@ export default function SimulationRoomTeacher() {
         <section className="simulation-card-wrapper">
           {gameData.map((game, index) => (
             <Link to="/teacher/room_settings">
-            <CardSimulation
-              key={index}
-              className="card card-simulation"
-              title={game.name}
-              bannerSrc={
-                game.bannerSrc || "/assets/banner/banner_adventure.webp"
-              }
-              progressTitle="Students Done"
-              progressValue={game.participants ? game.participants.length : 0}
-            />
-          </Link>
+              <CardSimulation
+                key={index}
+                className="card card-simulation"
+                title={game.name}
+                bannerSrc={
+                  game.bannerSrc || "/assets/banner/banner_adventure.webp"
+                }
+                progressTitle="Students Done"
+                progressValue={game.participants ? game.participants.length : 0}
+              />
+            </Link>
           ))}
           <Link to="/teacher/create_game">
             <CardCreate title="+Create Game" />

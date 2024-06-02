@@ -3,16 +3,39 @@ import { Link } from "react-router-dom";
 import { CardGame, CardArchive } from "./components/Card";
 import "./components/card.css";
 import "./dashboard.css";
-import { fetchUserData } from "./api";
-import { USER_TYPE } from "./Login";
+import { fetchUserData, VIEW_STUDENT_ROOM, VIEW_ROOM } from "./api";
+import { USER_TYPE, USER_ID } from "./Login";
 
 export const USER_DETAILS_ID = "userDetailsID";
 
 export default function Dashboard() {
+  const [creatorID] = useState(sessionStorage.getItem(USER_ID));
+  const [userID] = useState(sessionStorage.getItem(USER_ID));
   const [userData, setUserData] = useState(null);
   const storedUserDetails = JSON.parse(sessionStorage.getItem("userDetails")); // Define storedUserDetails
   const [userType, setUserType] = useState(sessionStorage.getItem(USER_TYPE));
   const [userDetailsID, setUserDetailsID] = useState();
+  const [roomCount, setRoomCount] = useState();
+
+  useEffect(() => {
+    if (userType == "student"){
+      fetch(`${VIEW_STUDENT_ROOM}${userID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.length);
+        setRoomCount(data.length);
+      })
+      .catch((error) => console.error("Error fetching floors:", error));
+    }  else if (creatorID) {
+      fetch(`${VIEW_ROOM}/${creatorID}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.length);
+          setRoomCount(data.length);
+        })
+        .catch((error) => console.error("Error fetching room dapvta:", error));
+    }
+  }, [creatorID]);
 
   console.log(userType);
   useEffect(() => {
@@ -65,7 +88,7 @@ export default function Dashboard() {
             title="Room"
             content="Lorem ipsum dolor sit amet, consectetur adipiscing"
             progressTitle="Room"
-            progressValue={4} // Placeholder value, replace with actual data if available
+            progressValue={roomCount} // Placeholder value, replace with actual data if available
             imageSrc="./assets/banner/banner_simulation.png"
           />
         </Link>
