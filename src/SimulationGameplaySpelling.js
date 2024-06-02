@@ -119,8 +119,8 @@ export default function SimulationGameplaySpelling() {
       className: "attack-main",
       style: {
         transform: "translateX(550px)",
-        height: "369px",
-        width: "calc(7004px/21)",
+        height: "408px",
+        width: "calc(8568px/21)",
       },
     });
 
@@ -268,6 +268,7 @@ export default function SimulationGameplaySpelling() {
   const playAudio = () => {
     if (audioUrl) {
       const audio = new Audio(audioUrl);
+      startTimer();
       audio
         .play()
         .then(() => console.log("Audio is playing"))
@@ -281,6 +282,52 @@ export default function SimulationGameplaySpelling() {
     navigate("/student/simulation_room");
   };
 
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false); // State to control whether the timer is active
+
+  useEffect(() => {
+    let interval = null;
+
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    } else if (!isActive && interval != null) {
+      clearInterval(interval);
+    }
+
+    // Clean up the interval on component unmount or isActive change
+    return () => clearInterval(interval);
+  }, [isActive]);
+
+  // Function to start the timer
+  const startTimer = () => {
+    setIsActive(true);
+  };
+
+  // Function to stop the timer
+  const stopTimer = () => {
+    setIsActive(false);
+  };
+
+  // Function to reset the timer
+  const resetTimer = () => {
+    setIsActive(false);
+    setSeconds(0);
+  };
+
+  // Format seconds into mm:ss
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remSeconds = seconds % 60;
+    return `${minutes}:${remSeconds < 10 ? "0" : ""}${remSeconds}`;
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleGoClick();
+    }
+  };
   return (
     <main className="gameplay-container">
       <Modal isVisible={isModalVisible} onConfirm={handleStartClick} />
@@ -290,7 +337,8 @@ export default function SimulationGameplaySpelling() {
         onConfirm={handleGameOverConfirm}
       />
       <div className="floor_indicator">
-        <span>Simulation {simulationID}</span>
+        {/* <span>Simulation {simulationID}</span> */}
+        <span>Timer: {formatTime(seconds)}</span>
       </div>
 
       <section className="gameplay-platform">
@@ -328,6 +376,7 @@ export default function SimulationGameplaySpelling() {
             <input
               type="text"
               className={`input-answer ${animateShake}`}
+              onKeyDown={handleKeyDown} // Add this line to handle Enter key press
               value={userInput}
               onChange={handleInputChange}
             />

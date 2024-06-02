@@ -64,9 +64,15 @@ function App() {
   };
 
   const showNavigation =
-    isLoggedIn && location.pathname !== "/adventure_spelling";
+    isLoggedIn &&
+    location.pathname !== "/adventure_spelling" &&
+    location.pathname !== "/simulation_gameplay";
+
   const showAdventureSpelling =
     isLoggedIn || location.pathname !== "/adventure_spelling";
+
+  const showSimulationSpelling =
+    isLoggedIn || location.pathname !== "/simulation_gameplay";
 
   return (
     <CreditProvider>
@@ -112,6 +118,13 @@ function App() {
             <Route
               path="/adventure_spelling"
               element={<GameplayAdventureSpelling />}
+            />
+          )}
+
+          {showSimulationSpelling && (
+            <Route
+              path="/simulation_gameplay"
+              element={<SimulationGameplaySpelling />}
             />
           )}
           {isLoggedIn && (
@@ -160,10 +173,6 @@ function App() {
 
               {/* End of Teacher Simulation */}
               <Route path="/Settings" element={<Settings />} />
-              <Route
-                path="/simulation_gameplay"
-                element={<SimulationGameplaySpelling />}
-              />
             </>
           )}
         </Routes>

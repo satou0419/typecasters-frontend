@@ -11,6 +11,8 @@ import {
   MERRIAM_API,
   UPDATE_USER_PROGRESS_ENDPOINT,
 } from "./api";
+
+import { USER_DETAILS_ID } from "./Dashboard";
 import "./gameplay.css";
 import "./components/animation.css";
 
@@ -30,6 +32,7 @@ export default function GameplayAdventureSpelling() {
   //If flag is 0, don't render the data
   //If it is 1, fetch the data
 
+  const userDetailsID = sessionStorage.getItem(USER_DETAILS_ID);
   const [nextPlay, setNextPlay] = useState(true);
   const [flag, setFlag] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(true);
@@ -54,6 +57,7 @@ export default function GameplayAdventureSpelling() {
   useEffect(() => {
     console.log("Enter: ", enteredFloor);
     console.log("Current: ", currentFloor);
+    console.log("DDD", userDetailsID);
   }, [enteredFloor]);
 
   useEffect(() => {
@@ -273,7 +277,7 @@ export default function GameplayAdventureSpelling() {
       console.log("UserID Type", typeof userID);
       console.log("Current Word", currentWord);
 
-      fetch(`${INSERT_WORD_ARCHIVE}/${userID}/${currentWord}`, {
+      fetch(`${INSERT_WORD_ARCHIVE}/${userDetailsID}/${currentWord}`, {
         method: "POST", // Use POST method for inserting data
       })
         .then((response) => {
@@ -688,6 +692,11 @@ export default function GameplayAdventureSpelling() {
       </div>
     );
   }
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleGoClick();
+    }
+  };
 
   return (
     <main className="gameplay-container">
@@ -752,6 +761,7 @@ export default function GameplayAdventureSpelling() {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               autoFocus={autoFocusValue}
+              onKeyDown={handleKeyDown}
               disabled={inputDisabled}
               className={`input-answer ${animateShake}`}
               ref={inputRef}

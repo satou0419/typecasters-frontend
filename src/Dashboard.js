@@ -26,11 +26,9 @@ export default function Dashboard() {
           console.log("Retrieved User Data:", data);
           setUserData(data);
 
-          sessionStorage.setItem(
-            USER_DETAILS_ID,
-            data.userProgress.userDetailsId
-          );
-          console.log("userIDDetais", data.userProgress.userDetailsId);
+          // Correctly store user_detail_id in sessionStorage
+          sessionStorage.setItem(USER_DETAILS_ID, data.user_detail_id);
+          console.log("user_detail_id", data.user_detail_id);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
