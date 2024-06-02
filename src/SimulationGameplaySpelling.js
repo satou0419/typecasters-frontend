@@ -5,8 +5,12 @@ import GameOverModal from "./GameOverModal";
 import { SIMULATION_GAMEPLAY } from "./api";
 import { useNavigate } from "react-router-dom";
 import { SIMULATION_ID } from "./SimulationRoom-Student";
-
-export default function SimulationGameplay() {
+import { USER_ID } from "./Login";
+import { INSERT_WORD_ARCHIVE } from "./api";
+import { USER_DETAILS_ID } from "./Dashboard";
+export default function SimulationGameplaySpelling() {
+  const userDetailsID = sessionStorage.getItem(USER_DETAILS_ID);
+  const [currentWord, setCurrentWord] = useState();
   const [flag, setFlag] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(true);
   const [isGameOverModalVisible, setIsGameOverModalVisible] = useState(false);
@@ -15,7 +19,7 @@ export default function SimulationGameplay() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [getSimulation, setGetSimulation] = useState([]);
   const [simulationID] = useState(sessionStorage.getItem(SIMULATION_ID));
-
+  const [insertWord, setInsertWord] = useState(false);
   const [animateShake, setAnimateShake] = useState("");
   const [isEnemyHit, setEnemyIsHit] = useState("");
   const [isMainHit, setMainIsHit] = useState(false);
@@ -55,6 +59,8 @@ export default function SimulationGameplay() {
       if (getSimulation.words && getSimulation.words.length > 0) {
         const currentWord = getSimulation.words[currentWordIndex].word;
         fetchWordDefinition(currentWord);
+        setCurrentWord(currentWord);
+        setInsertWord(true);
       }
     };
 
@@ -66,7 +72,34 @@ export default function SimulationGameplay() {
     }
 
     fetchWordData();
-  }, [flag, getSimulation, currentWordIndex, hearts]);
+  }, [flag, getSimulation, currentWordIndex]);
+
+  useEffect(() => {
+    if (insertWord === true) {
+      console.log("UserID Type", typeof userID);
+      console.log("Current Word", currentWord);
+
+      fetch(`${INSERT_WORD_ARCHIVE}/${userDetailsID}/${currentWord}`, {
+        method: "POST", // Use POST method for inserting data
+      })
+        .then((response) => {
+          console.log("Response status:", response.status);
+          return response.text(); // or response.json() if the response is expected to be JSON
+        })
+        .then((data) => {
+          setInsertWord(false);
+          console.log("Response data:", data);
+          // Handle the response data
+        })
+        .catch((error) => {
+          if (error instanceof TypeError) {
+            console.error("Network error:", error.message);
+          } else {
+            console.error("Error fetching data:", error.message);
+          }
+        });
+    }
+  }, [flag]);
 
   useEffect(() => {
     playAudio(); // Call playAudio when component mounts
@@ -86,8 +119,8 @@ export default function SimulationGameplay() {
       className: "attack-main",
       style: {
         transform: "translateX(550px)",
-        height: "369px",
-        width: "calc(7004px/21)",
+        height: "408px",
+        width: "calc(8568px/21)",
       },
     });
 
@@ -235,6 +268,7 @@ export default function SimulationGameplay() {
   const playAudio = () => {
     if (audioUrl) {
       const audio = new Audio(audioUrl);
+      startTimer();
       audio
         .play()
         .then(() => console.log("Audio is playing"))
@@ -248,6 +282,52 @@ export default function SimulationGameplay() {
     navigate("/student/simulation_room");
   };
 
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false); // State to control whether the timer is active
+
+  useEffect(() => {
+    let interval = null;
+
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    } else if (!isActive && interval != null) {
+      clearInterval(interval);
+    }
+
+    // Clean up the interval on component unmount or isActive change
+    return () => clearInterval(interval);
+  }, [isActive]);
+
+  // Function to start the timer
+  const startTimer = () => {
+    setIsActive(true);
+  };
+
+  // Function to stop the timer
+  const stopTimer = () => {
+    setIsActive(false);
+  };
+
+  // Function to reset the timer
+  const resetTimer = () => {
+    setIsActive(false);
+    setSeconds(0);
+  };
+
+  // Format seconds into mm:ss
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remSeconds = seconds % 60;
+    return `${minutes}:${remSeconds < 10 ? "0" : ""}${remSeconds}`;
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleGoClick();
+    }
+  };
   return (
     <main className="gameplay-container">
       <Modal isVisible={isModalVisible} onConfirm={handleStartClick} />
@@ -257,7 +337,8 @@ export default function SimulationGameplay() {
         onConfirm={handleGameOverConfirm}
       />
       <div className="floor_indicator">
-        <span>Simulation {simulationID}</span>
+        {/* <span>Simulation {simulationID}</span> */}
+        <span>Timer: {formatTime(seconds)}</span>
       </div>
 
       <section className="gameplay-platform">
@@ -295,6 +376,7 @@ export default function SimulationGameplay() {
             <input
               type="text"
               className={`input-answer ${animateShake}`}
+              onKeyDown={handleKeyDown} // Add this line to handle Enter key press
               value={userInput}
               onChange={handleInputChange}
             />

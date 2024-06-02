@@ -3,9 +3,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { USER_ID } from "./Login";
 import { CREATE_ROOM } from "./api";
 import { useState } from "react";
-import { Modal } from './components/Modal';
+import { Modal } from "./components/Modal";
 import "./components/animation.css";
-
 
 export default function CreateRoom() {
   const [userID, setUserID] = useState(sessionStorage.getItem(USER_ID));
@@ -23,10 +22,10 @@ export default function CreateRoom() {
 
       if (!roomName) {
         setIsEmpty(true);
-        setTimeout(() => setIsEmpty(false), 500); 
+        setTimeout(() => setIsEmpty(false), 500);
         console.error("Please fill all fields");
         return;
-      }else{
+      } else {
         setIsModalOpen(true); // Show the modal
       }
 
@@ -48,26 +47,27 @@ export default function CreateRoom() {
       }
 
       console.log("Room Created Successfully");
+      console.log(response.data);
       // Navigate('/teacher/simulation_mode');
     } catch (error) {
       console.error("Error creating room!");
     }
   };
 
-      const handleCancelCreate = () => {
-        setIsModalOpen(false);
-        console.log("Cancelled Room Creation")
-      };
+  const handleCancelCreate = () => {
+    setIsModalOpen(false);
+    console.log("Cancelled Room Creation");
+  };
 
-      // const handleCreate = () => {
-      //   setIsModalOpen(true); // Show the modal
-      // };
+  // const handleCreate = () => {
+  //   setIsModalOpen(true); // Show the modal
+  // };
 
-      const handleConfirmCreate = () => {
-        navigate('/teacher/simulation_mode');
-        setIsModalOpen(false); // Hide the modal
-        console.log("Room Created!") // Navigate to the specified route
-      };
+  const handleConfirmCreate = () => {
+    navigate("/teacher/simulation_mode");
+    setIsModalOpen(false); // Hide the modal
+    console.log("Room Created!"); // Navigate to the specified route
+  };
 
   return (
     <main className="createroom-container">
@@ -75,7 +75,9 @@ export default function CreateRoom() {
         <h1 className="createroom-card__heading">Create Room</h1>
         <input
           type="text"
-          className={`input input-line input-line--dark ${isEmpty ? "animate-shake" : ""}`}
+          className={`input input-line input-line--dark ${
+            isEmpty ? "animate-shake" : ""
+          }`}
           placeholder="Enter Room Name"
           id="roomName"
         />

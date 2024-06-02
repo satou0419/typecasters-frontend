@@ -11,6 +11,8 @@ import {
   MERRIAM_API,
   UPDATE_USER_PROGRESS_ENDPOINT,
 } from "./api";
+
+import { USER_DETAILS_ID } from "./Dashboard";
 import "./gameplay.css";
 import "./components/animation.css";
 
@@ -30,6 +32,7 @@ export default function GameplayAdventureSpelling() {
   //If flag is 0, don't render the data
   //If it is 1, fetch the data
 
+  const userDetailsID = sessionStorage.getItem(USER_DETAILS_ID);
   const [nextPlay, setNextPlay] = useState(true);
   const [flag, setFlag] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(true);
@@ -47,11 +50,14 @@ export default function GameplayAdventureSpelling() {
   const isCleared = enteredFloor < currentFloor; // Checks if the it is a cleared floor
   const [isConquered, setIsConquered] = useState(false); // Checks if the floor has been conquered
   const [isItemModalVisible, setIsItemModalVisible] = useState(false);
+  const [score, setScore] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     console.log("Enter: ", enteredFloor);
     console.log("Current: ", currentFloor);
+    console.log("DDD", userDetailsID);
   }, [enteredFloor]);
 
   useEffect(() => {
@@ -98,9 +104,6 @@ export default function GameplayAdventureSpelling() {
         .catch((error) => console.error("Error updating progress:", error));
     } else if (isConquered === true && isCleared === true) {
       console.log("Floor already conquered!!!");
-      setTimeout(() => {
-        navigate("/adventure_mode");
-      }, 3000);
     }
   }, [isConquered]);
 
@@ -125,8 +128,10 @@ export default function GameplayAdventureSpelling() {
     setAudioButtonDisabled(false);
     setInputDisabled(false);
 
-    inputRef.current && inputRef.current.focus(); // Focus on the input if it exists
-    inputRef.current.focus(); // Focus on the input
+    // Check if completed state is false before setting focus
+    if (!completed && inputRef.current) {
+      inputRef.current.focus(); // Focus on the input
+    }
   };
 
   //#endregion
@@ -272,7 +277,7 @@ export default function GameplayAdventureSpelling() {
       console.log("UserID Type", typeof userID);
       console.log("Current Word", currentWord);
 
-      fetch(`${INSERT_WORD_ARCHIVE}/${userID}/${currentWord}`, {
+      fetch(`${INSERT_WORD_ARCHIVE}/${userDetailsID}/${currentWord}`, {
         method: "POST", // Use POST method for inserting data
       })
         .then((response) => {
@@ -431,21 +436,21 @@ export default function GameplayAdventureSpelling() {
         audioElement.src = audioUrl;
         audioElement.play();
         setInputDisabled(false);
-        inputRef.current.focus();
+        if (inputRef.current) {
+        }
         setAutoFocusValue(true);
 
         // Add event listener for 'ended' event
         audioElement.addEventListener("ended", handleAudioEnded);
       }
     }
-
     // Cleanup function to remove the event listener
     return () => {
       if (audioElement) {
         audioElement.removeEventListener("ended", handleAudioEnded);
       }
     };
-  }, [audioUrl, audioElement, nextPlay]); // Include audioElement as a dependency
+  }, [audioUrl, audioElement, nextPlay, isCorrect]); // Include audioElement as a dependency
 
   // Effect to create audio element
   useEffect(() => {
@@ -471,6 +476,7 @@ export default function GameplayAdventureSpelling() {
   };
 
   //#region Handling Answer
+
   const handleGoClick = () => {
     //#region Empty Answer
     if (userInput.trim() === "") {
@@ -478,22 +484,32 @@ export default function GameplayAdventureSpelling() {
       console.log("Please enter a word before submitting.");
       setAnimateShake("animate-shake");
       setTimeout(() => {
-        setAnimateShake("");
+        if (!completed) {
+          // Use optional chaining to safely access inputRef.current
+          setAnimateShake(""); // Set animateShake only if inputRef.current exists and game is not completed
+        }
       }, 500);
       setTimeout(() => {
-        inputRef.current && inputRef.current.focus(); // Focus on the input if it exists
-
-        inputRef.current.focus(); // Focus on the input
+        if (!completed) {
+          // Use optional chaining to safely access inputRef.current
+          enableInputs();
+        }
       }, 500);
 
       return;
     }
+
+    const incrementScore = () => {
+      setScore((prevScore) => prevScore + 1);
+    };
 
     const words = enemies[currentEnemyIndex].words;
     const currentWord = words[currentWordIndex];
 
     if (userInput.trim().toLowerCase() === currentWord.toLowerCase()) {
       // Correct word handling
+
+      incrementScore();
       setInsertWord(true);
       mainAttackAnimation();
       setIsCorrect(true);
@@ -508,7 +524,6 @@ export default function GameplayAdventureSpelling() {
         // Enable input, set focus after animation completes
         setTimeout(() => {
           setInputDisabled(false);
-          inputRef.current.focus(); // Focus on the input
         }, 1500);
 
         // Check if all words of the enemy are defeated
@@ -535,6 +550,8 @@ export default function GameplayAdventureSpelling() {
             console.log("All enemies are defeated!");
             // Add logic for completing the game if needed
             setIsConquered(true);
+            setCompleted(true);
+            setGameOver(true);
           }
         }
       }, 1500);
@@ -569,7 +586,6 @@ export default function GameplayAdventureSpelling() {
       audioElement.play();
       setTimeout(() => {
         setInputDisabled(false);
-        inputRef.current.focus(); // Focus on the input
       }, 500);
     }
   };
@@ -655,11 +671,32 @@ export default function GameplayAdventureSpelling() {
     setSelectedItem(null);
   };
 
+  useEffect(() => {
+    if (gameOver) {
+      const timer = setTimeout(() => {
+        navigate("/adventure_mode");
+      }, 5000);
+
+      // Cleanup the timeout if the component unmounts or if gameOver changes
+      return () => clearTimeout(timer);
+    }
+  }, [gameOver, navigate]);
+
   //#region JSX
   // Render game over message if game over
   if (gameOver) {
-    return <div className="game-over">Game Over</div>;
+    return (
+      <div className="game-over">
+        <span>Game Over</span>
+        <span>{score}</span>
+      </div>
+    );
   }
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleGoClick();
+    }
+  };
 
   return (
     <main className="gameplay-container">
@@ -724,6 +761,7 @@ export default function GameplayAdventureSpelling() {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               autoFocus={autoFocusValue}
+              onKeyDown={handleKeyDown}
               disabled={inputDisabled}
               className={`input-answer ${animateShake}`}
               ref={inputRef}

@@ -259,3 +259,15 @@
 .btn-audio:disabled {
   background-color: pink;
 }
+
+.game-over {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  font-size: 50pt;
+  justify-content: center;
+  align-items: center;
+  font-family: "lilita one";
+  color: #333;
+  margin: 0;
+}
