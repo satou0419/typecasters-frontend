@@ -1,23 +1,28 @@
-.game-card-wrapper{
-    margin-top: 2.5rem; 
-    width: 80%;
-    position: absolute;
-    display: flex;
+.game-card-wrapper {
+  margin-top: 2.5rem;
+  width: 80%;
+  position: absolute;
+  display: flex;
 }
-.txt-Rooms{
-    font-family: "lilita One";
-    font-size: 1.5rem;
-    margin-left: 14%;
-    margin-top: 4rem;
+.txt-Rooms {
+  font-family: "lilita One";
+  font-size: 1.5rem;
+  margin-left: 14%;
+  margin-top: 4rem;
 }
-.card-simulation{
-    height: 30rem;
-    width: 18rem;
+.card-simulation {
+  height: 30rem;
+  width: 18rem;
 }
-.btn-info{
-    width: 15%;
-    height: 3rem;
-    margin-left: 80%;
-    position: absolute;
-    margin-top: -1rem;
+.btn-info {
+  width: 15%;
+  height: 3rem;
+  margin-left: 80%;
+  position: absolute;
+  margin-top: -1rem;
+}
+
+.card-link.disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }

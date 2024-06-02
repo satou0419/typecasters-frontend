@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { MERRIAM_API, API_KEY, AUDIO_PATH } from "./api";
+import {
+  MERRIAM_API,
+  API_KEY,
+  AUDIO_PATH,
+  UPDATE_STUDENT_SIMULATION_PROGRESS,
+} from "./api";
 import Modal from "./StartModal";
-import GameOverModal from "./GameOverModal";
 import { SIMULATION_GAMEPLAY } from "./api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SIMULATION_ID } from "./SimulationRoom-Student";
 import { USER_ID } from "./Login";
 import { INSERT_WORD_ARCHIVE } from "./api";
 import { USER_DETAILS_ID } from "./Dashboard";
+export const SIMULATION_PARTICIPANTS_ID = "simulationParticipantsID";
 export default function SimulationGameplaySpelling() {
   const userDetailsID = sessionStorage.getItem(USER_DETAILS_ID);
   const [currentWord, setCurrentWord] = useState();
   const [flag, setFlag] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(true);
-  const [isGameOverModalVisible, setIsGameOverModalVisible] = useState(false);
   const navigate = useNavigate();
+  const [score, setScore] = useState(0);
+  const incrementScore = () => {
+    setScore((prevScore) => prevScore + 1);
+  };
 
+  const [isDone, setIsDone] = useState(false);
+
+  const [userID, setUserID] = useState(sessionStorage.getItem(USER_ID));
+
+  const [simulationParticipantsID, setSimulationParticipantsID] = useState();
   const [isCorrect, setIsCorrect] = useState(false);
   const [getSimulation, setGetSimulation] = useState([]);
   const [simulationID] = useState(sessionStorage.getItem(SIMULATION_ID));
@@ -49,30 +62,46 @@ export default function SimulationGameplaySpelling() {
   const [isCorrectSpelling, setIsCorrectSpelling] = useState(true);
 
   useEffect(() => {
-    const fetchWordData = async () => {
-      if (currentWordIndex >= 10 || hearts <= 0) {
-        setGameOver(true);
-        setIsGameOverModalVisible(true);
-        return;
-      }
-
-      if (getSimulation.words && getSimulation.words.length > 0) {
-        const currentWord = getSimulation.words[currentWordIndex].word;
-        fetchWordDefinition(currentWord);
-        setCurrentWord(currentWord);
-        setInsertWord(true);
-      }
-    };
-
     if (flag === 1) {
       fetch(`${SIMULATION_GAMEPLAY}${simulationID}`)
         .then((response) => response.json())
         .then((data) => setGetSimulation(data))
         .catch((error) => console.error("Error fetching room data:", error));
     }
+  }, [flag]);
 
-    fetchWordData();
-  }, [flag, getSimulation, currentWordIndex]);
+  useEffect(() => {
+    if (getSimulation) {
+      console.log("Fetched Simulation Data:", getSimulation);
+
+      // Logging simulationParticipantsID for each participant
+      if (getSimulation.participants && getSimulation.participants.length > 0) {
+        getSimulation.participants.forEach((participant) => {
+          sessionStorage.setItem(
+            SIMULATION_PARTICIPANTS_ID,
+            participant.simulationParticipantsID
+          );
+
+          setSimulationParticipantsID(participant.simulationParticipantsID);
+
+          console.log("USERID", simulationParticipantsID);
+          console.log("SSID", userID);
+        });
+      }
+
+      // Fetch word data
+      if (currentWordIndex >= 10 || hearts <= 0) {
+        setGameOver(true);
+        stopTimer();
+        setIsDone(true);
+      } else if (getSimulation.words && getSimulation.words.length > 0) {
+        const currentWord = getSimulation.words[currentWordIndex].word;
+        fetchWordDefinition(currentWord);
+        setCurrentWord(currentWord);
+        setInsertWord(true);
+      }
+    }
+  }, [getSimulation, currentWordIndex]);
 
   useEffect(() => {
     if (insertWord === true) {
@@ -182,7 +211,8 @@ export default function SimulationGameplaySpelling() {
 
         if (hearts === 1) {
           setGameOver(true);
-          setIsGameOverModalVisible(true);
+          stopTimer();
+          setIsDone(true);
         } else {
           setTimeout(() => {
             loadNextWord();
@@ -206,6 +236,7 @@ export default function SimulationGameplaySpelling() {
 
     if (isCorrect) {
       mainAttackAnimation();
+      incrementScore();
     } else {
       springEnemyAttackAnimation();
     }
@@ -257,6 +288,7 @@ export default function SimulationGameplaySpelling() {
       }
     } catch (error) {
       console.error("Error fetching definition:", error);
+
       setWordData({
         pronunciation: "",
         definition: "Error fetching the definition.",
@@ -279,8 +311,45 @@ export default function SimulationGameplaySpelling() {
   };
 
   const handleGameOverConfirm = () => {
-    navigate("/student/simulation_room");
+    // navigate("/student/simulation_room");
   };
+
+  useEffect(() => {
+    if (isDone === true) {
+      fetch(`${UPDATE_STUDENT_SIMULATION_PROGRESS}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          simulationParticipantsID: simulationParticipantsID,
+          userID: userID,
+          score: score,
+          time: seconds,
+          done: isDone,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text(); // Read response as text
+        })
+        .then((data) => {
+          console.log("Response:", data); // Log the response received from the server
+          if (data === "User Progress Updated!") {
+            console.log("Updated Progress: Updated Successful");
+            // Navigate after 3 seconds
+          } else {
+            console.error(
+              "Error updating progress: Unexpected response -",
+              data
+            );
+          }
+        })
+        .catch((error) => console.error("Error updating progress:", error));
+    }
+  }, [isDone]);
 
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false); // State to control whether the timer is active
@@ -328,14 +397,26 @@ export default function SimulationGameplaySpelling() {
       handleGoClick();
     }
   };
+
+  if (gameOver) {
+    return (
+      <div className="game-over">
+        <span>Game Over</span>
+        <span>{score}</span>
+        <span>{formatTime(seconds)}</span>
+
+        <Link to="/student/simulation_room">
+          <button id="btn-continue" className="btn btn--small btn--primary">
+            Continue
+          </button>
+        </Link>
+      </div>
+    );
+  }
   return (
     <main className="gameplay-container">
       <Modal isVisible={isModalVisible} onConfirm={handleStartClick} />
-      <GameOverModal
-        isVisible={isGameOverModalVisible}
-        score={currentWordIndex}
-        onConfirm={handleGameOverConfirm}
-      />
+
       <div className="floor_indicator">
         {/* <span>Simulation {simulationID}</span> */}
         <span>Timer: {formatTime(seconds)}</span>

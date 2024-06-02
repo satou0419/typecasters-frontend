@@ -29,6 +29,7 @@ export const CREATE_GAME = `${BASE_URL}/simulation/insert`;
 export const GET_REWARD_BY_FLOOR = `${BASE_URL}/adventure_reward/get_reward_by_floor_id`;
 export const VIEW_GAME_BY_ROOM = `${BASE_URL}/simulation/view_by_room/`;
 export const SIMULATION_GAMEPLAY = `${BASE_URL}/simulation/view_by_id/`;
+export const UPDATE_STUDENT_SIMULATION_PROGRESS = `${BASE_URL}/simulations_participants/edit`;
 
 export const MERRIAM_API = `https://www.dictionaryapi.com/api/v3/references/sd2/json/`;
 export const API_KEY = `95454221-2935-4778-b4e6-be2ca5ede0cb`;

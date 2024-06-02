@@ -44,25 +44,32 @@ export default function AdventureMode() {
   };
 
   const renderSimulationCards = (simulations) => {
-    return simulations.map((simulation, index) => (
-      <Link
-        key={index}
-        to="/simulation_gameplay"
-        onClick={() => handleCardClick(simulation, index)}
-        className="card-link"
-      >
-        <CardSimulation
-          className="card card-simulation"
-          title={simulation.name}
-          bannerSrc="./assets/banner/banner_adventure.webp"
-          progressTitle="Students Done"
-          progressValue={
-            simulation.participants.filter((participant) => participant.done)
-              .length
-          }
-        />
-      </Link>
-    ));
+    return simulations.map((simulation, index) => {
+      const isDisabled = simulation.participants.some(
+        (participant) => participant.done
+      );
+
+      return (
+        <Link
+          key={index}
+          to={isDisabled ? "#" : "/simulation_gameplay"}
+          onClick={() => !isDisabled && handleCardClick(simulation, index)}
+          className={`card-link ${isDisabled ? "disabled" : ""}`}
+        >
+          <CardSimulation
+            className="card card-simulation"
+            title={simulation.name}
+            bannerSrc="./assets/banner/banner_adventure.webp"
+            progressTitle="Students Done"
+            progressValue={
+              simulation.participants.filter((participant) => participant.done)
+                .length
+            }
+            disabled={isDisabled}
+          />
+        </Link>
+      );
+    });
   };
 
   return (
