@@ -135,7 +135,9 @@ export default function Archive() {
                 <div className="book-page book--container">
                   {selectedWord ? (
                     <div className="word-details">
-                      <h2>{selectedWord}</h2>
+                      <h2
+                      id="word_name"
+                      >{selectedWord}</h2>
                       <p>
                         {currentWordData.pronunciation &&
                           `[${currentWordData.pronunciation}]`}
@@ -149,7 +151,9 @@ export default function Archive() {
                           </button>
                         )}
                       </p>
-                      <h1>DEFINITION</h1>
+                      <h1
+                      id="word_desc"
+                      >DEFINITION</h1>
                       <p>{currentWordData.definition}</p>
                     </div>
                   ) : (

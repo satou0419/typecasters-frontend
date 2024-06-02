@@ -48,6 +48,7 @@
   padding: 7px 5px 5px 7px;
   display: flex;
   cursor: pointer;
+  justify-content: space-between;
 }
 
 .inventory-item-box.active {
@@ -102,6 +103,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  
 }
 
 .inventory-item-picture {
@@ -132,4 +134,20 @@
   font-family: "lilita one";
   padding: 5px 15px 10px 15px;
   font-size: 20px;
+}
+
+.inventory-item-bigger-sub-box{
+  display: flex;
+}
+
+.quantity-box{
+  background: #593796;
+  height: 50px;
+  width: 50px;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 }
