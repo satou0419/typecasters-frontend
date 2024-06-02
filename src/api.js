@@ -1,11 +1,12 @@
 // Define your base URL
 // const BASE_URL = "http://localhost:8080";
 // const BASE_URL = "https://api-typecasters.azurewebsites.net"; //EXPIRED
-const BASE_URL = "https://api-tower-of-words.azurewebsites.net";
+const BASE_URL = "http://localhost:8080";
 // Define your API endpoints
 export const LOGIN_ENDPOINT = `${BASE_URL}/user/login`;
 export const REGISTER_ENDPOINT = `${BASE_URL}/user/register`;
 export const LOGOUT_ENDPOINT = `${BASE_URL}/user/logout`;
+export const GET_USER_INFO_BY_ID = `${BASE_URL}/user/get_user_info/`;
 export const GET_USER_ID_BY_USERNAME = `${BASE_URL}/user/get_user_id/`;
 export const GET_ALL_ITEMS_ENDPOINT = `${BASE_URL}/item/get_all_items`;
 export const GET_ALL_FLOORS_ENDPOINT = `${BASE_URL}/floor/get_all_floors`;
@@ -24,6 +25,7 @@ export const ITEM_USED = `${BASE_URL}/user_item/use_item`;
 export const VIEW_WORD_ARCHIVE = `${BASE_URL}/archive_words/view/`;
 export const VIEW_ROOM = `${BASE_URL}/room/view_created_room/`;
 export const VIEW_ROOM_BY_ID = `${BASE_URL}/room/view_room_by_id/`;
+export const UPDATE_ROOM = `${BASE_URL}/room/edit`;
 export const JOIN_ROOM = `${BASE_URL}/room/insert_member_by_code/`;
 export const INSERT_STUDENT = `${BASE_URL}/room/insert_member/`;
 export const STUDENT_VIEW_ROOM = `${BASE_URL}/room/view_room_by_member/`;

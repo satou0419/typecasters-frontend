@@ -27,7 +27,7 @@ export default function Dashboard() {
         })
         .catch((error) => console.error("Error fetching floors:", error));
     } else if (creatorID) {
-      fetch(`${VIEW_ROOM}/${creatorID}`)
+      fetch(`${VIEW_ROOM}${creatorID}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data.length);

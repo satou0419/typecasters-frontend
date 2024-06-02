@@ -18,7 +18,7 @@ export default function SimulationModeTeacher() {
 
   useEffect(() => {
     if (creatorID) {
-      fetch(`${VIEW_ROOM}/${creatorID}`)
+      fetch(`${VIEW_ROOM}${creatorID}`)
         .then((response) => response.json())
         .then((data) => setRooms(data))
         .catch((error) => console.error("Error fetching room dapvta:", error));
@@ -41,7 +41,7 @@ export default function SimulationModeTeacher() {
     <main className="simulation-wrapper">
       <div className="txt-Rooms">Rooms</div>
       <section className="teacher-card-wrapper">
-        {rooms.map((room) => (
+        {Array.isArray(rooms) && rooms.map((room) => (
           <Link
             to="/teacher/simulation_room"
             key={room.roomID}
