@@ -10,7 +10,6 @@ const StartModal = ({ isVisible, onConfirm }) => {
         <h2 id="description">Spell the words and defeat all the enemies!</h2>
         <button
           id="btn-start"
-          id="confirm_btn"
           className="btn btn--small btn--primary"
           onClick={onConfirm}
         >
