@@ -63,7 +63,7 @@ export default function AdventureMode() {
           <CardSimulation
             className="card card-simulation"
             title={simulation.name}
-            bannerSrc="./assets/banner/banner_adventure.webp"
+            bannerSrc="/assets/banner/banner_quiz.webp"
             progressTitle="Score"
             progressValue={totalScore}
             disabled={isDisabled}

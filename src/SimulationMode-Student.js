@@ -40,7 +40,7 @@ export default function SimulationModeStudent() {
 
   return (
     <main className="Simulation-wrapper">
-      <div className="txt-Rooms">Rooms</div>
+      <div className="txt-Rooms room-header">Rooms</div>
       <section className="game-card-wrapper">
         {joinRoomData.map((room, index) => (
           <div
@@ -53,7 +53,7 @@ export default function SimulationModeStudent() {
               className="card card-simulation"
               title={room.roomName}
               content="Teacher"
-              bannerSrc="/assets/banner/banner_adventure.webp"
+              bannerSrc="/assets/banner/banner_room.jpg"
               progressTitle="Students"
               progressValue={room.members ? room.members.length : 0}
             />

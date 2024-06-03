@@ -1,7 +1,7 @@
 // Define your base URL
-// const BASE_URL = "http://localhost:8080";
-// const BASE_URL = "https://api-typecasters.azurewebsites.net"; //EXPIRED
 const BASE_URL = "http://localhost:8080";
+// const BASE_URL = "https://api-typecasters.azurewebsites.net"; //EXPIRED
+// const BASE_URL = "https://api-tower-of-words.azurewebsites.net";
 // Define your API endpoints
 export const LOGIN_ENDPOINT = `${BASE_URL}/user/login`;
 export const REGISTER_ENDPOINT = `${BASE_URL}/user/register`;

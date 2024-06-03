@@ -1,38 +1,63 @@
-.main-container{
-    /* border: solid blue; */
-    display: flex;
+.main-container {
+  /* border: solid blue; */
+  display: flex;
 }
-.leftbox{
-    margin-left: 100px;
-    padding: 5px;
-    /* border: solid red; */
-    width: 50%;
+.leftbox {
+  margin-left: 100px;
+  padding: 5px;
+  /* border: solid red; */
+  width: 50%;
 }
-.cardstatus{
-    margin-top: 30px;
-}
-
-.rightbox{
-    margin-right: 100px;
-    padding: 5px;
-    /* border: solid pink; */
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+.cardstatus {
+  margin-top: 30px;
 }
 
-.words-added{
-    margin-top: 15px;
-    font-family: 'lilita one';
-    
+.rightbox {
+  margin-right: 100px;
+  padding: 5px;
+  /* border: solid pink; */
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.words{
-    margin-top: 60px;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
+.words-added {
+  margin-top: 15px;
+  font-family: "lilita one";
+}
+.overflow {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* Creates two columns, each taking half of the container's width */
+  grid-gap: 10px; /* Space between rows and columns */
+  overflow-y: hidden;
+  height: 150px;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+
+  padding-bottom: 30px;
+}
+
+.words {
+  margin-top: 60px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-holder {
+  padding: 10px 0px;
+
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  height: 500px;
+  overflow-y: auto;
 }

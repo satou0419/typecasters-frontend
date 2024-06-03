@@ -163,6 +163,7 @@ a {
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-direction: row-reverse;
   width: auto; /* Or specify a width if needed */
   overflow: hidden; /* Hide any content that overflows the container */

@@ -295,7 +295,7 @@ export default function CreateGame() {
 
   return (
     <main className="tab-container">
-      <p className="txt-creategame">Create Game</p>
+      {/* <p className="txt-creategame">Create Game</p> */}
       <section className="tab-section">
         <div className="tab-btn-container">
           <div

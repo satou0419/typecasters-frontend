@@ -23,7 +23,7 @@ export default function SimulationModeTeacher() {
         .then((data) => setRooms(data))
         .catch((error) => console.error("Error fetching room dapvta:", error));
     }
-  }, [creatorID]); // Fixed the dependency array
+  }, [rooms]); // Fixed the dependency array
 
   const handleCardSimulationClick = (clickedRoom) => {
     setRoomID(clickedRoom.roomID);
@@ -41,22 +41,23 @@ export default function SimulationModeTeacher() {
     <main className="simulation-wrapper">
       <div className="txt-Rooms">Rooms</div>
       <section className="teacher-card-wrapper">
-        {Array.isArray(rooms) && rooms.map((room) => (
-          <Link
-            to="/teacher/simulation_room"
-            key={room.roomID}
-            onClick={() => handleCardSimulationClick(room)}
-          >
-            <CardSimulation
-              className="card card-simulation"
-              title={room.roomName}
-              content="Teacher" // Assuming this is static as not provided in JSON
-              bannerSrc="/assets/banner/banner_adventure.webp" // Assuming this is static as not provided in JSON
-              progressTitle="Students"
-              progressValue={room.members.length.toString()} // Convert number of members to string
-            />
-          </Link>
-        ))}
+        {Array.isArray(rooms) &&
+          rooms.map((room) => (
+            <Link
+              to="/teacher/simulation_room"
+              key={room.roomID}
+              onClick={() => handleCardSimulationClick(room)}
+            >
+              <CardSimulation
+                className="card card-simulation"
+                title={room.roomName}
+                content="Teacher" // Assuming this is static as not provided in JSON
+                bannerSrc="/assets/banner/banner_room.jpg" // Assuming this is static as not provided in JSON
+                progressTitle="Students"
+                progressValue={room.members.length.toString()} // Convert number of members to string
+              />
+            </Link>
+          ))}
         <Link to="/teacher/create_room">
           <CardCreate title="+Create Room" />
         </Link>

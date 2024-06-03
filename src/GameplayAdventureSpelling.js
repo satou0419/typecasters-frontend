@@ -551,7 +551,7 @@ export default function GameplayAdventureSpelling() {
             // Add logic for completing the game if needed
             setIsConquered(true);
             setCompleted(true);
-            setGameOver(true);
+            // setGameOver(true);
           }
         }
       }, 1500);
@@ -672,7 +672,7 @@ export default function GameplayAdventureSpelling() {
   };
 
   useEffect(() => {
-    if (gameOver) {
+    if (gameOver || completed) {
       const timer = setTimeout(() => {
         navigate("/adventure_mode");
       }, 5000);
@@ -684,6 +684,15 @@ export default function GameplayAdventureSpelling() {
 
   //#region JSX
   // Render game over message if game over
+
+  if (completed) {
+    return (
+      <div className="game-over">
+        <span>Floor Complete</span>
+        <span>{score}</span>
+      </div>
+    );
+  }
   if (gameOver) {
     return (
       <div className="game-over">
