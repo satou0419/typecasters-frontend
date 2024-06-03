@@ -7,9 +7,10 @@ const StartModal = ({ isVisible, onConfirm }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Spell the words and defeat all the enemies!</h2>
+        <h2 id="description">Spell the words and defeat all the enemies!</h2>
         <button
           id="btn-start"
+          id="confirm_btn"
           className="btn btn--small btn--primary"
           onClick={onConfirm}
         >
