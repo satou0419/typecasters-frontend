@@ -33,17 +33,19 @@ export default function CreateRoom() {
   return (
     <main className="joinroom-container">
       <section className="card createroom-card joinroom-card">
-        <img src="/assets/background/join_room_background.webp" />
-        <h1 className="createroom-card__heading">Join Room</h1>
+        <img id="joinroom_bg" src="/assets/background/join_room_background.webp" />
+        <h1 id="joinroom_heading" className="createroom-card__heading">Join Room</h1>
         <input
           type="text"
           value={gameCode}
           onChange={handleInputChange} // Update this line
           className="input input-line input-line--dark join-input"
           placeholder="Enter Room Name"
+          id="enter_room_name"
         />
         <Link to="/student/simulation_mode">
           <button
+            id="join_btn"
             className="btn btn--large btn--primary join-btn"
             onClick={handleJoinClick}
           >
@@ -51,7 +53,7 @@ export default function CreateRoom() {
           </button>
         </Link>
         <Link to="/student/simulation_mode">
-          <button className=">btn btn--large btn--danger--large cancel-btn">
+          <button id="cancel_btn" className=">btn btn--large btn--danger--large cancel-btn">
             CANCEL
           </button>
         </Link>

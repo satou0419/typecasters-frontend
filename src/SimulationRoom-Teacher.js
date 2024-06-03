@@ -27,7 +27,7 @@ export default function SimulationRoomTeacher() {
   return (
     <main className="simulation-wrapper">
       <Link to="/teacher/room_info">
-        <button className="btn btn--small btn--primary btn-info">
+        <button id="room_info_btn" className="btn btn--small btn--primary btn-info">
           Room Information
         </button>
       </Link>
@@ -35,7 +35,7 @@ export default function SimulationRoomTeacher() {
       <div className="txt-Rooms">{`Simulation - =${roomName}==${roomCode}`}</div>
 
       <div className="teacher-card-wrapper">
-        <section className="simulation-card-wrapper">
+        <section id="created_games" className="simulation-card-wrapper">
           {gameData.map((game, index) => (
             <Link to="/teacher/room_settings">
               <CardSimulation

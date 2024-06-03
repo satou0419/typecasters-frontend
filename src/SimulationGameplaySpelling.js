@@ -420,15 +420,17 @@ export default function SimulationGameplaySpelling() {
 
       <div className="floor_indicator">
         {/* <span>Simulation {simulationID}</span> */}
-        <span>Timer: {formatTime(seconds)}</span>
+        <span id="timer">Timer: {formatTime(seconds)}</span>
       </div>
 
       <section className="gameplay-platform">
         <div
+          id="img_character"
           className={`${mainState.className} ${isMainHit} character character-main`}
           style={mainState.style}
         ></div>
         <div
+          id="img_custom_enemy"
           className={`${enemyState.className} ${isEnemyHit} character  character-enemy`}
           style={enemyState.style}
         ></div>
@@ -436,6 +438,7 @@ export default function SimulationGameplaySpelling() {
 
       <section className="gameplay-control">
         <img
+          id="decorative_border"
           className="border"
           src="./assets/misc/border_control.webp"
           alt="Decorative border"
@@ -450,12 +453,14 @@ export default function SimulationGameplaySpelling() {
         <div className="control-input">
           <div className="input-wrapper">
             <button
+              id="audio_btn"
               className="btn btn--small btn--primary btn-audio"
               onClick={playAudio}
             >
               Audio
             </button>
             <input
+              id="input_word"
               type="text"
               className={`input-answer ${animateShake}`}
               onKeyDown={handleKeyDown} // Add this line to handle Enter key press
@@ -469,7 +474,7 @@ export default function SimulationGameplaySpelling() {
             >
               GO!
             </button>
-            <div className="lives-container">
+            <div id="hearts_list" className="lives-container">
               {[...Array(6 - hearts)].reverse().map((_, index) => (
                 <img
                   key={index}
@@ -479,6 +484,7 @@ export default function SimulationGameplaySpelling() {
               ))}
               {[...Array(hearts)].map((_, index) => (
                 <img
+                id="hearts"
                   key={index}
                   src="./assets/icon/ic_heart.png"
                   alt="Heart Icon"
@@ -490,7 +496,7 @@ export default function SimulationGameplaySpelling() {
         <div className="control-clue">
           <div className="control-clue-container">
             <div className="clue-wrapper">
-              <h3>Word Info's</h3>
+              <h3 id="lbl_word_info">Word Info's</h3>
               <span className="lbl_pronunciation">Pronunciation</span>
               <div
                 className={`text-pronunciation ${pronunciationStatus.className}`}

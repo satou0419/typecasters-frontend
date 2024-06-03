@@ -257,7 +257,7 @@ export default function AdventureMode() {
                   </div> */}
                 </div>
                 <button
-                  id="btn-enter"
+                  id="btn_enter"
                   className="btn btn--small btn--primary btn-enter"
                   onClick={handleEnterClick}
                 >
@@ -267,10 +267,10 @@ export default function AdventureMode() {
             </div>
           </section>
         </section>
-        <section className="tower-container">{renderFloorCards()}</section>
+        <section id="floors_list" className="tower-container">{renderFloorCards()}</section>
       </section>
-      <section className="lower-adventure">
-        <div className="progress">
+      <section id="floor_progress_list" className="lower-adventure">
+        <div id="lbl_progress" className="progress">
           PROGRESS:
           {renderProgressSections()}
         </div>
