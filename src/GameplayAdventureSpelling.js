@@ -794,7 +794,7 @@ export default function GameplayAdventureSpelling() {
         <div className="control-clue">
           <div className="control-clue-container">
             <div className="clue-wrapper">
-              <h3>Word Info's</h3>
+              <h3 id="lbl_word_info">Word Info's</h3>
               <span className="lbl_pronunciation">Pronunciation</span>
               <div
                 className={`text-pronunciation ${pronunciationStatus.className}`}
